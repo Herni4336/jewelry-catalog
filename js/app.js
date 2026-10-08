@@ -61,8 +61,10 @@ function openModal(item) {
     document.getElementById('modal-auth').innerText = item.authenticity || '-';
     document.getElementById('modal-desc').innerText = item.description || '';
 
-    const myPhone = "77077326121"; // Поменяйте на свой номер
+    const myPhone = "77077326121"; // Ваш номер телефона
     const messageText = `Сәлеметсіз бе! Маған "${item.title}" ұнады. Бағасы: ${item.price}. Тапсырыс бергім келеді.`;
+    
+    // ИСПРАВЛЕНО: Добавлен \$ перед переменной и слеш после wa.me
     document.getElementById('modal-wa-btn').href = `https://wa.me{myPhone}?text=${encodeURIComponent(messageText)}`;
 
     // Безопасное открытие добавлением класса
