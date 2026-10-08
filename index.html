@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
-
+<html lang="kk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог Украшений</title>
+    <title>Әшекей бұйымдар каталогы</title>
     <style>
         @import url('https://googleapis.com');
 
@@ -12,134 +11,326 @@
             font-family: 'Montserrat', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fdfbf7;
+            background-color: #fdfbf7; 
             color: #2c2c2c;
         }
 
         header {
-            background-color: transparent;
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 15px 15px 15px;
         }
 
         header h1 {
-            font-family: 'Georgia', serif;
-            margin: 0 0 10px 0;
-            font-size: 32px;
-            letter-spacing: 2px;
+            font-family: 'Georgia', serif; 
+            margin: 0 0 8px 0;
+            font-size: 26px;
+            letter-spacing: 1px;
             font-weight: 400;
             text-transform: uppercase;
         }
 
         header p {
             margin: 0;
-            font-size: 14px;
-            color: #8c7e65;
-            letter-spacing: 3px;
+            font-size: 11px;
+            color: #8c7e65; 
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
+        /* Стили для вкладок (Фильтров) */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 0 15px;
+        }
+
+        .tab-btn {
+            background-color: #fff;
+            border: 1px solid rgba(184, 151, 66, 0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #2c2c2c;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: #bc9c4b;
+            color: #fff;
+            border-color: #bc9c4b;
+            box-shadow: 0 4px 10px rgba(184, 151, 66, 0.2);
+        }
+
+        /* Компактная сетка: на мобильных по 2 карточки в ряд! */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            /* Слегка увеличили расстояние для объема */
-            padding: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 15px;
             max-width: 1200px;
             margin: 0 auto 60px auto;
         }
 
-        /* Наводим красоту на карточки и добавляем сочные, заметные тени */
+        @media (min-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 30px;
+            }
+        }
+
+        /* Компактная карточка товара */
         .card {
             background-color: #fff;
-            border-radius: 16px;
-            /* Более мягкие премиальные углы */
+            border-radius: 12px; 
             overflow: hidden;
-            /* Плотная, контрастная, но мягкая тень, которая четко выделяет рамки */
-            box-shadow: 0 15px 35px rgba(44, 44, 44, 0.08), 0 5px 15px rgba(184, 151, 66, 0.06);
+            box-shadow: 0 8px 20px rgba(44, 44, 44, 0.04); 
             text-align: center;
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
-            border: 1px solid rgba(184, 151, 66, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(184, 151, 66, 0.12); 
+            cursor: pointer;
         }
 
-        /* Эффектный объем при наведении */
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 22px 45px rgba(44, 44, 44, 0.15), 0 8px 20px rgba(184, 151, 66, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(44, 44, 44, 0.1);
         }
 
-        /* Контейнер под фото, чтобы украшения влезали ПОЛНОСТЬЮ */
         .card img {
             width: 90%;
-            /* Оставляем зазоры по бокам */
-            height: 340px;
+            height: 160px; /* Уменьшили высоту для мобильных экранов */
             object-fit: contain;
-            /* Картинка сжимается пропорционально и никогда не обрезается! */
-            padding: 20px 5% 0 5%;
-            /* Внутренние отступы сверху и по бокам */
+            padding: 15px 5% 0 5%;
             background-color: #fff;
+        }
+
+        @media (min-width: 768px) {
+            .card img {
+                height: 250px;
+            }
         }
 
         .card-info {
-            padding: 25px 20px;
-            background-color: #fff;
+            padding: 12px 10px;
         }
 
         .card-title {
             font-family: 'Georgia', serif;
-            font-size: 19px;
-            margin: 0 0 12px 0;
+            font-size: 14px;
+            margin: 0 0 6px 0;
             font-weight: 500;
-            line-height: 1.4;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Прячем длинный текст в многоточие */
         }
 
-        .card-price {
-            font-size: 18px;
-            color: #bc9c4b;
-            font-weight: 600;
-            margin: 0;
-            letter-spacing: 0.5px;
-        }
-    </style>
-</head>
-
-<body>
-
-    <header>
-        <h1>Моя Галерея Украшений</h1>
-        <p>Эксклюзивные изделия ручной работы</p>
-    </header>
-
-    <div class="gallery" id="jewelry-gallery"></div>
-
-    <script>
-        async function loadCatalog() {
-            try {
-                const response = await fetch('data.json');
-                const products = await response.json();
-                const gallery = document.getElementById('jewelry-gallery');
-
-                gallery.innerHTML = '';
-
-                products.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <img src="${item.image}" alt="${item.alt || 'Украшение'}">
-                        <div class="card-info">
-                            <p class="card-title">${item.title}</p>
-                            <p class="card-price">${item.price}</p>
-                        </div>
-                    `;
-                    gallery.appendChild(card);
-                });
-            } catch (error) {
-                console.error('Ошибка загрузки каталога:', error);
+        @media (min-width: 768px) {
+            .card-title {
+                font-size: 17px;
+                white-space: normal;
             }
         }
 
-        window.addEventListener('DOMContentLoaded', loadCatalog);
-    </script>
-</body>
+        .card-price {
+            font-size: 13px;
+            color: #bc9c4b; 
+            font-weight: 600;
+            margin: 0;
+        }
 
-</html>
+        @media (min-width: 768px) {
+            .card-price {
+                font-size: 16px;
+            }
+        }
+
+        /* Стили для Всплывающего Окна (Модалка) */
+        .modal {
+            display: none; /* По умолчанию скрыто */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            animation: fadeIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #8c7e65;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-family: 'Georgia', serif;
+            font-size: 22px;
+            margin: 0 0 15px 0;
+        }
+
+        .modal-price {
+            font-size: 20px;
+            color: #bc9c4b;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* Таблица характеристик */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .specs-table td {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0eae0;
+        }
+
+        .specs-table td:first-child {
+            color: #8c7e65;
+            font-weight: 500;
+        }
+
+        .specs-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Менің әшекейлер галереям</h1>
+        <p>Эксклюзивті қолдан жасалған бұйымдар</p>
+    </header>
+
+    <!-- Блок вкладок-фильтров -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="filterCatalog('all')">Барлығы</button>
+        <button class="tab-btn" onclick="filterCatalog('rings')">Жүзіктер</button>
+        <button class="tab-btn" onclick="filterCatalog('earrings')">Сырғалар</button>
+    </div>
+
+    <!-- Галерея товаров -->
+    <div class="gallery" id="jewelry-gallery"></div>
+
+    <!-- Всплывающее окно подробностей -->
+    <div class="modal" id="product-modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="document.getElementById('product-modal').style.display='none'">&times;</span>
+            <img class="modal-img" id="modal-img" src="" alt="">
+            <h2 class="modal-title" id="modal-title"></h2>
+            <div class="modal-price" id="modal-price"></div>
+            
+            <table class="specs-table">
+                <tr>
+                    <td>Металл түрі:</td>
+                    <td id="modal-metal">-</td>
+                </tr>
+                <tr>
+                    <td>Сынамасы (Проба):</td>
+                    <td id="modal-probe">-</td>
+                </tr>
+                <tr>
+                    <td>Түпнұсқалылығы:</td>
+                    <td id="modal-auth">-</td>
+                </tr>
+            </table>
+            <p id="modal-desc" style="font-size: 14px; line-height: 1.5; color: #555;"></p>
+        </div>
+    </div>
+
+    <script>
+        let allProducts = []; // Тут хранятся все товары
+
+        async function loadCatalog() {
+            try {
+                const response = await fetch('data.json');
+                allProducts = await response.json();
+                renderGallery(allProducts);
+            } catch (error) {
+                console.error('Каталогты жүктеу қатесі:', error);
+            }
+        }
+
+        function renderGallery(products) {
+            const gallery = document.getElementById('jewelry-gallery');
+            gallery.innerHTML = '';
+
+            products.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                // При клике на карточку открываем окно с деталями
+                card.onclick = () => openModal(item);
+                
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.alt || 'Әшекей'}">
+                    <div class="card-info">
+                        <p class="card-title">${item.title}</p>
+                        <p class="card-price">${item.price}</p>
+                    </div>
+                `;
+                gallery.appendChild(card);
+            });
+        }
+
+        // Логика фильтрации по вкладкам
+        function filterCatalog(category) {
+            // Переключаем активную кнопку
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (category === 'all') {
+                renderGallery(allProducts);
+            } else {
+                const filtered = allProducts.filter(item => item.category === category);
+                renderGallery(filtered);
+            }
+        }
+
+        // Открытие всплывающего окна
+        function openModal(item) {
+            document.getElementById('modal-img').src = item.image;
+            document.getElementById('modal-title').innerText = item.title;
+            document.getElementById('modal-price').innerText = item.price;
