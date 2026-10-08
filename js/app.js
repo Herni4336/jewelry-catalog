@@ -65,8 +65,7 @@ function openModal(item) {
     const messageText = `Сәлеметсіз бе! Маған "${item.title}" ұнады. Бағасы: ${item.price}. Тапсырыс бергім келеді.`;
     
     // ИСПРАВЛЕНО: Добавлен \$ перед переменной и слеш после wa.me
-   document.getElementById('modal-wa-btn').href =
-    `https://wa.me/${myPhone}?text=${encodeURIComponent(messageText)}`;
+   document.getElementById('modal-wa-btn').href = `https://wa.me/${myPhone}?text=${encodeURIComponent(messageText)}`;
 
     // Безопасное открытие добавлением класса
     document.getElementById('product-modal').classList.add('open');
