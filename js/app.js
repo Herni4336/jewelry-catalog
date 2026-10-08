@@ -61,7 +61,7 @@ function openModal(item) {
     document.getElementById('modal-auth').innerText = item.authenticity || '-';
     document.getElementById('modal-desc').innerText = item.description || '';
 
-    const myPhone = "77071234567"; // Поменяйте на свой номер
+    const myPhone = "87077326121"; // Поменяйте на свой номер
     const messageText = `Сәлеметсіз бе! Маған "${item.title}" ұнады. Бағасы: ${item.price}. Тапсырыс бергім келеді.`;
     document.getElementById('modal-wa-btn').href = `https://wa.me{myPhone}?text=${encodeURIComponent(messageText)}`;
 
