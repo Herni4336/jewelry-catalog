@@ -62,21 +62,22 @@ header p {
     box-shadow: 0 4px 10px rgba(184, 151, 66, 0.2);
 }
 
-/* Сетка галереи: авто-размер, но с ограничением, чтобы одна карточка не растягивалась */
+/* Сетка галереи: центрируем карточки и убираем пустоту по краям */
 .gallery {
     display: grid;
-    /* auto-fill вместо auto-fit не дает одной карточке занять весь экран */
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+    /* Изменили на auto-fit + добавили центрирование */
+    grid-template-columns: repeat(auto-fit, minmax(160px, max-content)); 
+    justify-content: center; /* Центрирует карточки, если их мало в ряду */
     gap: 15px;
     padding: 15px;
     max-width: 1200px;
     margin: 0 auto 60px auto;
 }
 
-/* На планшетах и компьютерах */
+/* На планшетах и компьютерах (сделали карточки чуть крупнее — 320px) */
 @media (min-width: 768px) {
     .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, max-content));
         gap: 30px;
     }
 }
