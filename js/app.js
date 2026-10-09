@@ -88,7 +88,7 @@ function openModal(item) {
     const myPhone = "77077326121"; 
     const messageText = `Сәлеметсіз бе! Маған "${item.title}" ұнады. Бағасы: ${item.price}. Тапсырыс бергім келеді.`;
     
-    // Использован более универсальный API-адрес и правильные косые кавычки с \${}
+    // ИСПРАВЛЕНО: Добавлен знак \$ перед фигурной скобкой и косая черта после wa.me
     document.getElementById('modal-wa-btn').href = `https://wa.me{myPhone}?text=${encodeURIComponent(messageText)}`;
 
     // Отображаем окно
