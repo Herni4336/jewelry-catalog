@@ -89,8 +89,7 @@ function openModal(item) {
     const messageText = `Сәлеметсіз бе! Маған "${item.title}" ұнады. Бағасы: ${item.price}. Тапсырыс бергім келеді.`;
     
     // Использован более универсальный API-адрес и правильные косые кавычки с \${}
-    document.getElementById('modal-wa-btn').href = `https://whatsapp.com{myPhone}&text=${encodeURIComponent(messageText)}`;
-
+    document.getElementById('modal-wa-btn').href = `https://wa.me{myPhone}?text=${encodeURIComponent(messageText)}`;
 
     // Отображаем окно
     document.getElementById('product-modal').classList.add('open');
