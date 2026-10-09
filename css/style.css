@@ -62,20 +62,21 @@ header p {
     box-shadow: 0 4px 10px rgba(184, 151, 66, 0.2);
 }
 
-/* Сетка галереи: теперь полностью адаптивная по умолчанию */
+/* Сетка галереи: авто-размер, но с ограничением, чтобы одна карточка не растягивалась */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* На мобильных по 2 в ряд, если экран совсем узкий — выстроится в 1 */
+    /* auto-fill вместо auto-fit не дает одной карточке занять весь экран */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
     gap: 15px;
     padding: 15px;
     max-width: 1200px;
     margin: 0 auto 60px auto;
 }
 
-/* На планшетах и компьютерах делаем карточки крупнее */
+/* На планшетах и компьютерах */
 @media (min-width: 768px) {
     .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 30px;
     }
 }
@@ -90,18 +91,17 @@ header p {
     border: 1px solid rgba(184, 151, 66, 0.12);
     cursor: pointer;
     
-    /* Эффект плавного проявления карточки при рендере/фильтрации */
-    animation: cardFadeIn 0.4s ease forwards;
+    /* Ультра-плавное появление только через прозрачность */
+    animation: cardFadeIn 0.3s ease-out both;
 }
 
+/* Чистое появление без изменения масштаба, чтобы убрать мерцание */
 @keyframes cardFadeIn {
     from {
         opacity: 0;
-        transform: scale(0.96);
     }
     to {
         opacity: 1;
-        transform: scale(1);
     }
 }
 
