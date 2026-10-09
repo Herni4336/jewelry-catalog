@@ -89,7 +89,7 @@ function openModal(item) {
     const messageText = `Сәлеметсіз бе! Маған "${item.title}" ұнады. Бағасы: ${item.price}. Тапсырыс бергім келеді.`;
     
     // ИСПРАВЛЕНО: Добавлен знак \$ перед фигурной скобкой и косая черта после wa.me
-    document.getElementById('modal-wa-btn').href = `https://wa.me{myPhone}?text=${encodeURIComponent(messageText)}`;
+    document.getElementById('modal-wa-btn').href = `https://wa.me/${myPhone}?text=${encodeURIComponent(messageText)}`;
 
     // Отображаем окно
     document.getElementById('product-modal').classList.add('open');
