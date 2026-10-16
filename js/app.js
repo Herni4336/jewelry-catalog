@@ -92,7 +92,9 @@ function openModal(item) {
     if (weightEl) weightEl.innerText = item.weight || '-';
 
     const installmentEl = document.getElementById('modal-installment');
-    if (installmentEl) installmentEl.innerText = item.installment_price || '-';
+    if (installmentEl) {
+        installmentEl.innerText = item.installment_price ? `${item.installment_price}` : '-';
+    }
 
     document.getElementById('modal-auth').innerText = item.authenticity || '-';
     document.getElementById('modal-desc').innerText = item.description || '';
@@ -102,6 +104,24 @@ function openModal(item) {
     const messageText = `Сәлеметсіз бе! Маған "${item.title}" ұнады. Бағасы: ${item.price}. Тапсырыс бергім келеді.`;
     
     document.getElementById('modal-wa-btn').href = `https://wa.me/${myPhone}?text=${encodeURIComponent(messageText)}`;
+
+    // Логика для кнопки "Поделиться"
+    const shareBtn = document.getElementById('modal-share-btn');
+    shareBtn.onclick = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: item.title,
+                    text: `Керемет әшекей: ${item.title}. Бағасы: ${item.price}`,
+                    url: window.location.href,
+                });
+            } catch (err) {
+                console.log('Ошибка при шеринге', err);
+            }
+        } else {
+            alert('Бұл браузерде бөлісу функциясы қолдау көрсетілмейді');
+        }
+    };
 
     // Отображаем окно
     document.getElementById('product-modal').classList.add('open');
