@@ -276,6 +276,35 @@ header p {
     margin-bottom: 25px;
 }
 
+/* Блок с кнопками внизу модалки */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.share-btn {
+    background-color: #25D366;
+    color: #fff;
+    border: none;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.share-btn:hover {
+    background-color: #20ba5a;
+    transform: translateY(-1px);
+}
+
 .whatsapp-btn {
     display: block;
     background-color: #25D366;
@@ -288,6 +317,7 @@ header p {
     text-decoration: none;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
     transition: background-color 0.3s ease, transform 0.2s ease;
+    flex-grow: 1;
 }
 
 .whatsapp-btn:hover {
