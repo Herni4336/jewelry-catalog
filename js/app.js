@@ -56,12 +56,17 @@ function setupFilters() {
         tabsContainer.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        // Фильтруем массив данных
+        // Фильтруем массив данных (поддерживает как строку, так и массив категорий)
         const category = btn.getAttribute('data-category');
         if (category === 'all') {
             renderGallery(allProducts);
         } else {
-            const filtered = allProducts.filter(item => item.category === category);
+            const filtered = allProducts.filter(item => {
+                if (Array.isArray(item.category)) {
+                    return item.category.includes(category);
+                }
+                return item.category === category;
+            });
             renderGallery(filtered);
         }
     });
@@ -81,6 +86,14 @@ function openModal(item) {
     document.getElementById('modal-price').innerText = item.price;
     document.getElementById('modal-metal').innerText = item.metal || '-';
     document.getElementById('modal-probe').innerText = item.probe || '-';
+    
+    // Заполняем новые поля (вес и рассрочка)
+    const weightEl = document.getElementById('modal-weight');
+    if (weightEl) weightEl.innerText = item.weight || '-';
+
+    const installmentEl = document.getElementById('modal-installment');
+    if (installmentEl) installmentEl.innerText = item.installment_price || '-';
+
     document.getElementById('modal-auth').innerText = item.authenticity || '-';
     document.getElementById('modal-desc').innerText = item.description || '';
 
@@ -88,7 +101,6 @@ function openModal(item) {
     const myPhone = "77077326121"; 
     const messageText = `Сәлеметсіз бе! Маған "${item.title}" ұнады. Бағасы: ${item.price}. Тапсырыс бергім келеді.`;
     
-    // ИСПРАВЛЕНО: Добавлен знак \$ перед фигурной скобкой и косая черта после wa.me
     document.getElementById('modal-wa-btn').href = `https://wa.me/${myPhone}?text=${encodeURIComponent(messageText)}`;
 
     // Отображаем окно
